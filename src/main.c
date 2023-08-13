@@ -55,8 +55,8 @@ int main (int argc, char *argv[]) {
 				}
 				continue;
 			}
-			else if (options[i] == getchArg) usegetch = 1;
-			else if (options[i] == timeArg) usetime = 1;
+			else if (options[i] == getchArg) useGetch = 1;
+			else if (options[i] == timeArg) useTime = 1;
 			else if (atoi(options[i])) tapeSize = atoi(options[i]);
 			else { printf ("Warning: '%s': unknown argument. Ignoring.\n", options[i]); }
 		}

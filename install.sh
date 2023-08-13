@@ -1,9 +1,8 @@
 #!/bin/sh
 
-if test -f "build/pbfi"; then
-	cp build/pbfi ~/.local/bin/pbfi
-else
-	echo "Built binary not found, compiling..."
-	cc src/main.c -o build/pbfi -lcurses
-	cp build/pbfi ~/.local/bin/pbfi
-fi
+echo "Built binary not found, compiling..."
+cc src/main.c -o build/pbfi -lcurses
+echo Done.
+mkdir -p ~/.local/bin
+cp build/pbfi ~/.local/bin/pbfi
+echo Built binary placed in ~/.local/bin/. You may need to add ~/.local/bin/ to your \$PATH

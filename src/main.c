@@ -25,20 +25,6 @@ int main (int argc, char *argv[]) {
 		return data;
 	}
 	char * bfFile;
-	// default configs from bf.conf
-	/* FILE * confFile;
-	if (fopen(confFile)) {
-		fclose(confFile);
-		char * confStr = readFile("bf.conf");
-		int spaces = 0;
-		for (int i = 0; i < strlen(confStr); i++) {
-			if (confStr[i] == ' ') spaces++;
-		}
-		char * options[spaces];
-		for (int i = 0; i < strlen(confStr); i++) {
-			if (confStr[i] != ' ') options;
-		}
-	} */
 	void config (int optAmount, char * options[]) {
 		const char * getchArg = "--getch";
 		const char * timeArg  = "--time";
@@ -61,6 +47,24 @@ int main (int argc, char *argv[]) {
 			else { printf ("Warning: '%s': unknown argument. Ignoring.\n", options[i]); }
 		}
 	}
+	// default configs from bf.conf
+	FILE * confFile;
+	// check if bf.conf exists
+	if (fopen("bf.conf", "rb")) {
+		fclose(confFile);
+		char * confStr = readFile("bf.conf");
+		int spaces = 0;
+		for (int i = 0; i < strlen(confStr); i++) {
+			if (confStr[i] == ' ') spaces++;
+		}
+		char * options[spaces];
+		for (int i = 0; i < strlen(confStr); i++) {
+			if (confStr[i] != ' ') options[spaces][i] = confStr[i];
+		}
+		config(spaces, options);
+	}
+
+	// config from command line options
 	config (argc, argv);
 	int tape[tapeSize];
 	memset (tape, 0, tapeSize);

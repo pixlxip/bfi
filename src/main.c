@@ -98,7 +98,7 @@ int main (int argc, char *argv[]) {
 		if (tape[cursor] == 0) {
 			// [: +, ]: -, if it finds a ] and the sum is 0, it found the closing ].
 			int cpos = filepos;
-			int sum = 1;
+			int sum = 0;
 			int eof = 0;
 			// printf("%c", filestr[cpos]);
 			while (1) {
@@ -122,7 +122,7 @@ int main (int argc, char *argv[]) {
 		if (tape[cursor] != 0) {
 			// ]: +, [: -, if it finds a [ and the sum is 0, it found the opening [.
 			int cpos = filepos;
-			int sum = 1;
+			int sum = 0;
 			int eof = 0;
 			// printf("%c", filestr[cpos]);
 			while (1) {

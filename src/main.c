@@ -6,10 +6,10 @@
 
 int main (int argc, char *argv[]) {
 	int tapeSize = 30000; // 30,000
-	int cursor = 0;
-	int filepos = 0;
+	int cursor   = 0;
+	int filepos  = 0;
 	int useGetch = 0;
-	int useTime = 0;
+	int useTime  = 0;
 	char* readFile (char* name) {
 		FILE* file = fopen(name, "rb");
 		if (!file) {
@@ -39,21 +39,29 @@ int main (int argc, char *argv[]) {
 			if (confStr[i] != ' ') options;
 		}
 	} */
-	// get configs from command line
-	for (int i = 1; i < argc; i++) {
-		if (argv[i][0] == '-' && argv[i][1] != '-') {
-			for (int j = 1; j < strlen(argv[i]); j++) {
-				if (argv[i][j] == 'g') useGetch = 1;
-				else if (argv[i][j] == 't') useTime = 1;
-				else printf ("Warning: '-%c': unknown flag. Ignoring.\n", argv[i][j]);
+	void config (int optAmount, char * options[]) {
+		const char * getchArg = "--getch";
+		const char * timeArg  = "--time";
+		for (int i = 1; i < optAmount; i++) {
+			FILE *fileCheck;
+			if (fileCheck = fopen(options[i], "r")) { bfFile = options[i]; 
+			                                          fclose (fileCheck); }
+			else if (options[i][0] == '-' && options[i][1] != '-') {
+				for (int j = 1; j < strlen(options[i]); j++) {
+					if (options[i][j] == 'g') useGetch = 1;
+					else if (options[i][j] == 't') useTime = 1;
+					else printf ("Warning: '-%c': unknown flag. Ignoring.\n", 
+					             options[i][j]);
+				}
+				continue;
 			}
-			continue;
+			else if (options[i] == getchArg) useGetch = 1;
+			else if (options[i] == timeArg) useTime = 1;
+			else if (atoi(options[i])) tapeSize = atoi(options[i]);
+			else { printf ("Warning: '%s': unknown argument. Ignoring.\n", options[i]); }
 		}
-		FILE *fileCheck;
-		if (fileCheck = fopen(argv[i], "r")) { bfFile = argv[i]; fclose (fileCheck); }
-		else if (atoi(argv[i])) tapeSize = atoi(argv[i]);
-		else { printf ("Warning: '%s': unknown argument. Ignoring.\n", argv[i]); }
 	}
+	config (argc, argv);
 	int tape[tapeSize];
 	memset (tape, 0, tapeSize);
 	char * filestr = readFile (bfFile);

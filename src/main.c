@@ -139,15 +139,43 @@ int main (int argc, char *argv[]) {
 		usleep(tape[cursor] * 1000);
 	}
 	void intrchar (char c) {
-		if (c == '>') right();
-		else if (c == '<') left();
-		else if (c == '+') plus();
-		else if (c == '-') minus();
-		else if (c == '.') print();
-		else if (c == ',') input();
-		else if (c == '[') startLoop();
-		else if (c == ']') endLoop();
-		else if (c == '*' && useTime == 1) sleep();
+		switch (c) {
+			case '>':
+				right();
+				break;
+			case '<':
+				left();
+				break;
+
+			case '+':
+				plus();
+				break;
+
+			case '-':
+				minus();
+				break;
+
+			case '.':
+				print();
+				break;
+
+			case ',':
+				input();
+				break;
+
+			case '[':
+				startLoop();
+				break;
+
+			case ']':
+				endLoop();
+				break;
+			case '*':
+				if (useTime) {
+					sleep();
+				}
+				break;
+		}
 	}
 	// printf("%s", filestr);
 	int i = 0;
